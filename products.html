@@ -4,38 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Productos - NEXUS RAIL PROJECT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background:#f8f9fa; color:#333; margin:0; }
-        header { background:#003366; color:white; text-align:center; padding:60px 20px; }
-        header img { max-height:100px; margin-bottom:15px; }
-        .container { max-width:1400px; margin:0 auto; padding:40px 20px; }
-        .search-bar { 
+        * {
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            background:#f8f9fa; 
+            color:#333; 
+            margin:0; 
+            line-height: 1.5;
+        }
+        
+        header { 
             background:#003366; 
-            padding:20px 8%; 
+            color:white; 
             text-align:center; 
+            padding:60px 20px; 
+        }
+        
+        header img { 
+            max-height:100px; 
+            margin-bottom:15px; 
+            width: auto;
+        }
+        
+        .container { 
+            max-width:1400px; 
+            margin:0 auto; 
+            padding:40px 20px; 
+        }
+        
+        .search-bar {
+            background:#003366;
+            padding:20px 5%;
+            text-align:center;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 15px rgba(0,0,0,0.25);
             transition: all 0.3s;
         }
+        
         .search-container {
             position: relative;
             max-width: 700px;
             margin: 0 auto;
         }
-        .search-bar input { 
-            width: 100%; 
-            padding: 16px 20px 16px 50px; 
-            font-size: 1.2rem; 
-            border: none; 
-            border-radius: 50px; 
-            outline: none; 
+        
+        .search-bar input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            outline: none;
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.15);
         }
+        
         .search-bar input:focus {
             box-shadow: 0 0 0 3px rgba(0,85,153,0.3);
         }
+        
         .search-icon {
             position: absolute;
             left: 18px;
@@ -44,37 +76,213 @@
             color: #aaa;
             font-size: 1.4rem;
         }
-        .search-bar button { 
-            display: none; 
+        
+        nav {
+            background: #003366;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05rem;
+            padding: 8px 16px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        nav a:hover {
+            color: #66ccff;
+        }
+        
+        .category { 
+            margin:80px 0; 
+        }
+        
+        .category h2 { 
+            color:#003366; 
+            text-align:center; 
+            font-size:2.5rem; 
+            margin-bottom:40px; 
+        }
+        
+        .products-grid { 
+            display:grid; 
+            grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); 
+            gap:35px; 
+        }
+        
+        .product-card { 
+            background:white; 
+            border-radius:12px; 
+            overflow:hidden; 
+            box-shadow:0 10px 30px rgba(0,0,0,0.12); 
+            transition:all 0.3s; 
+            text-align:center; 
+        }
+        
+        .product-card:hover { 
+            transform:translateY(-12px); 
+            box-shadow:0 20px 50px rgba(0,0,0,0.18); 
+        }
+        
+        .product-card img { 
+            width:100%; 
+            height:240px; 
+            object-fit:contain; 
+            background:#f0f4f8; 
+            padding:20px; 
+        }
+        
+        .product-card h3 { 
+            color:#003366; 
+            font-size:1.45rem; 
+            margin:20px 15px 12px; 
+        }
+        
+        .product-card p { 
+            padding:0 25px 25px; 
+            color:#555; 
+            font-size:0.98rem; 
+        }
+        
+        .btn-ficha { 
+            background:#005599; 
+            color:white; 
+            padding:12px 30px; 
+            border-radius:50px; 
+            text-decoration:none; 
+            font-weight:bold; 
+            margin:20px 0 35px; 
+            display:inline-block; 
+            transition:background 0.3s; 
+        }
+        
+        .btn-ficha:hover { 
+            background:#0077cc; 
+        }
+        
+        footer { 
+            background:#003366; 
+            color:white; 
+            text-align:center; 
+            padding:50px 20px; 
+            margin-top:80px; 
+        }
+        
+        .hidden { 
+            display:none !important; 
         }
 
-        .category { margin:80px 0; }
-        .category h2 { color:#003366; text-align:center; font-size:2.5rem; margin-bottom:40px; }
-        .products-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:35px; }
-        .product-card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.12); transition:all 0.3s; text-align:center; }
-        .product-card:hover { transform:translateY(-12px); box-shadow:0 20px 50px rgba(0,0,0,0.18); }
-        .product-card img { width:100%; height:240px; object-fit:contain; background:#f0f4f8; padding:20px; }
-        .product-card h3 { color:#003366; font-size:1.45rem; margin:20px 15px 12px; }
-        .product-card p { padding:0 25px 25px; color:#555; font-size:0.98rem; line-height:1.5; }
-        .btn-ficha { background:#005599; color:white; padding:12px 30px; border-radius:50px; text-decoration:none; font-weight:bold; margin:20px 0 35px; display:inline-block; transition:background 0.3s; }
-        .btn-ficha:hover { background:#0077cc; }
-        footer { background:#003366; color:white; text-align:center; padding:50px 20px; margin-top:80px; }
-        .hidden { display:none !important; }
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 45px 15px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .category h2 {
+                font-size: 2.1rem;
+                margin-bottom: 30px;
+            }
+            
+            .product-card img {
+                height: 210px;
+            }
+            
+            .product-card h3 {
+                font-size: 1.35rem;
+            }
+            
+            .search-bar {
+                padding: 16px 5%;
+            }
+            
+            .search-bar input {
+                font-size: 1.1rem;
+                padding: 14px 20px 14px 48px;
+            }
+            
+            nav {
+                gap: 12px;
+                padding: 12px 10px;
+            }
+            
+            nav a {
+                font-size: 0.98rem;
+                padding: 6px 14px;
+                margin: 0;
+            }
+            
+            .container {
+                padding: 25px 15px;
+            }
+            
+            .category {
+                margin: 60px 0;
+            }
+            
+            .btn-ficha {
+                padding: 11px 28px;
+                font-size: 0.97rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                max-width: 360px;
+                margin: 0 auto;
+            }
+            
+            .product-card img {
+                height: 190px;
+            }
+            
+            .product-card p {
+                font-size: 0.95rem;
+                padding: 0 20px 20px;
+            }
+            
+            header img {
+                max-height: 80px;
+            }
+            
+            .search-icon {
+                font-size: 1.3rem;
+                left: 16px;
+            }
+        }
     </style>
 </head>
 <body>
-
 <header>
     <img src="img/logo.png" alt="NEXUS RAIL PROJECT">
     <h1>Catálogo de Equipamiento Ferroviario</h1>
     <p>Tecnología de vanguardia para la eficiencia y seguridad de su red</p>
 </header>
 
-<nav style="background:#003366; padding:15px 0; text-align:center;">
-    <a href="index.html" style="color:white; margin:0 25px; text-decoration:none; font-weight:bold;">Inicio</a>
-    <a href="empresa.html" style="color:white; margin:0 25px; text-decoration:none; font-weight:bold;">Acerca de Nosotros</a>
-    <a href="productos.html" style="color:#66ccff; margin:0 25px; text-decoration:none; font-weight:bold;">Catálogo</a>
-    <a href="contact.html" style="color:white; margin:0 25px; text-decoration:none; font-weight:bold;">Contacto</a>
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="empresa.html">Acerca de Nosotros</a>
+    <a href="productos.html" style="color:#66ccff;">Catálogo</a>
+    <a href="contact.html">Contacto</a>
 </nav>
 
 <div class="search-bar">
@@ -85,7 +293,6 @@
 </div>
 
 <div class="container">
-
     <div class="category">
         <h2>Corte, Rectificado y Abrasivos</h2>
         <div class="products-grid">
@@ -95,28 +302,24 @@
                 <p>Corta rieles con precisión y alta velocidad usando discos abrasivos. Ideal para reparaciones y mantenimiento rápido.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Sierra de Rieles Abrasivos" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/maquinacortadoraderielesdecombustion interna.png" alt="Cortadora Combustión Interna">
                 <h3>Máquina Cortadora Combustión Interna</h3>
                 <p>Funciona con motor de combustión para cortes autónomos en zonas sin electricidad. Perfecta para emergencias.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Cortadora Combustión" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/rectificadoraelectricadeperfiles.png" alt="Rectificadora Eléctrica">
                 <h3>Rectificadora Eléctrica de Perfiles</h3>
                 <p>Rectifica perfiles de riel con motor eléctrico para restaurar superficies y mejorar adherencia.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Rectificadora Eléctrica" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/grindingstone.png" alt="Grinding Stone">
                 <h3>Grinding Stone (Piedras de Rectificado)</h3>
                 <p>Piedras abrasivas para pulir y alisar rieles, compatibles con rectificadoras para mantenimiento preventivo.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Grinding Stone" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/discodecorte.png" alt="Disco de Corte">
                 <h3>Disco de Corte</h3>
@@ -135,42 +338,36 @@
                 <p>Compacta balasto con presión hidráulica para estabilizar vías principales y desvíos.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Batidora Hidráulica" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/maquinabatidorahidraulicaautomatica.png" alt="Batidora Automática">
                 <h3>Batidora Hidráulica Automática</h3>
                 <p>Bateo automático con control de vibración para alta productividad y uniformidad.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Batidora Automática" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/batidoradediblebateruadelitio.png" alt="Batidora Litio">
                 <h3>Batidora Doble Batería Litio</h3>
                 <p>Funciona sin emisiones, con baterías recargables para bateo ecológico y portátil.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Batidora Litio" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/apisadordegasolinaportatil.png" alt="Apisonador Portátil">
                 <h3>Apisonador Portátil Gasolina</h3>
                 <p>Compacta balasto en zonas difíciles con motor de gasolina, ligero y de alta vibración.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Apisonador Portátil" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/pisadorderieldegasolina.png" alt="Pisador de Riel">
                 <h3>Pisador de Riel Gasolina</h3>
                 <p>Apisona rieles y traviesas con motor de gasolina para mantenimiento preventivo rápido.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Pisador de Riel" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/mbateadorahidraulicaderieles.png" alt="M. Bateadora Hidráulica">
                 <h3>M. Bateadora Hidráulica de Rieles</h3>
                 <p>Máquina robusta para bateo intensivo en rieles con sistema hidráulico de alta eficiencia.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de M. Bateadora Hidráulica" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/batidorahidraulicadedesvios.png" alt="Batidora de Desvíos">
                 <h3>Batidora Hidráulica de Desvíos</h3>
@@ -189,35 +386,30 @@
                 <p>Mide ancho de vía con precisión digital para inspecciones geométricas y ajustes.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Ancho de Vía Digital" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/medidordedesgastedelferrocarril.png" alt="Medidor de Desgaste">
                 <h3>Medidor de Desgaste del Ferrocarril</h3>
                 <p>Evalúa desgaste por corrosión y uso en rieles para planificar mantenimiento.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Medidor de Desgaste" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/calibradordeanchodevia.png" alt="Calibrador de Ancho">
                 <h3>Calibrador de Ancho de Vía</h3>
                 <p>Calibra ancho estándar de vía (1435 mm) con precisión manual.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Calibrador de Ancho" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/railalignmentframe.png" alt="Rail Alignment Frame">
                 <h3>Rail Alignment Frame</h3>
                 <p>Marco para alinear rieles y ajustar geometría durante instalación.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Rail Alignment Frame" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/trackgaugeadjuster.png" alt="Track Gauge Adjuster">
                 <h3>Track Gauge Adjuster</h3>
                 <p>Ajusta ancho de vía con precisión hidráulica para corrección de desalineaciones.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Track Gauge Adjuster" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/intrumentodemediciondeparmetrosdegeometira.png" alt="Instrumento de Medición Geométrica">
                 <h3>Instrumento de Medición de Parámetros de Geometría</h3>
@@ -236,21 +428,18 @@
                 <p>Perfora rieles y traviesas sin cables ni emisiones, ideal para trabajo portátil.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Perforadora Litio" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/brocasdeperforacion.png" alt="Brocas de Perforación">
                 <h3>Brocas de Perforación</h3>
                 <p>Juego de brocas de alta durabilidad para perforación en metal y concreto ferroviario.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Brocas de Perforación" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/preforadoraderielesconmotordegasolina.png" alt="Perforadora Gasolina">
                 <h3>Perforadora con Motor Gasolina</h3>
                 <p>Perforación potente para operaciones de alta demanda en campo remoto.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Perforadora Gasolina" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/preforadoraportatildetraviesas.png" alt="Perforadora de Traviesas">
                 <h3>Perforadora Portátil de Traviesas</h3>
@@ -269,21 +458,18 @@
                 <p>Aprieta/afloja fijaciones con alto torque para mantenimiento de rieles.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Llave de Impacto Portátil" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/llavedinamometricaverticaldedoblebateriadelitio.png" alt="Llave Dinamométrica Litio">
                 <h3>Llave Dinamométrica Vertical Litio</h3>
                 <p>Control preciso de torque con batería de litio para operaciones seguras.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Llave Dinamométrica" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/llaveelectricauniversalcondoblebateriadelitio.png" alt="Llave Eléctrica Universal">
                 <h3>Llave Eléctrica Universal Litio</h3>
                 <p>Llave versátil para múltiples fijaciones con doble batería.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Llave Eléctrica Universal" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/llaveparapernosdemotordegasolina.png" alt="Llave para Pernos Gasolina">
                 <h3>Llave para Pernos Motor Gasolina</h3>
@@ -302,28 +488,24 @@
                 <p>Dobla rieles con sistema hidráulico para corrección de alineación y curvatura.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Dobladora Hidráulica" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/hydraulicsieeperadjuster.png" alt="Ajustador de Traviesas">
                 <h3>Ajustador Hidráulico de Traviesas</h3>
                 <p>Ajusta posición de traviesas con precisión hidráulica para estabilidad de vía.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Ajustador de Traviesas" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/hydraulictrackjack.png" alt="Gato Hidráulico de Vía">
                 <h3>Gato Hidráulico de Vía</h3>
                 <p>Eleva secciones de vía para ajustes y reparaciones con capacidad hidráulica alta.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Gato Hidráulico de Vía" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/cuarvadoladerielesverticalhidraulica.png" alt="Cuadrado Vertical Hidráulico">
                 <h3>Cuadrado Vertical Hidráulico de Rieles</h3>
                 <p>Endereza rieles verticalmente sin riesgo de colapso durante instalación.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Cuadrado Vertical Hidráulico" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/tensordecarrilhidraulica.png" alt="Tensor de Carril Hidráulico">
                 <h3>Tensor de Carril Hidráulico</h3>
@@ -342,28 +524,24 @@
                 <p>Clips de alta resistencia para sujeción de rieles a traviesas, con elasticidad y durabilidad para vías de alta velocidad y carga pesada.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Sistema de Fijación Clips" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/abrazaderadepuntodeconmutacion.png" alt="Abrazadera Punto de Conmutación">
                 <h3>Abrazadera Punto de Conmutación</h3>
                 <p>Fija componentes en puntos de cambio de vía para estabilidad durante conmutaciones.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Abrazadera Punto de Conmutación" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/abrazaderaderieluniversal.png" alt="Abrazadera Universal">
                 <h3>Abrazadera de Riel Universal</h3>
                 <p>Sujeta rieles de diferentes tamaños durante reparaciones y alineaciones temporales.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Abrazadera Universal" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/abrazaderaderiel.png" alt="Abrazadera de Riel">
                 <h3>Abrazadera de Riel</h3>
                 <p>Fijación estándar para rieles durante trabajos de mantenimiento y soldadura.</p>
                 <a href="https://wa.me/573117883653?text=Quiero ficha técnica de Abrazadera de Riel" class="btn-ficha" target="_blank">Solicitar Ficha Técnica</a>
             </div>
-
             <div class="product-card">
                 <img src="img/carrilpeglable.png" alt="Carril Pegable">
                 <h3>Carril Pegable</h3>
@@ -372,24 +550,19 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <footer>
     <p>&copy; 2026 NEXUS RAIL PROJECT. Todos los derechos reservados.</p>
 </footer>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <script>
 document.getElementById('searchInput').addEventListener('input', function() {
     const filter = this.value.toLowerCase().trim();
     const cards = document.querySelectorAll('.product-card');
-
     cards.forEach(card => {
         const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
         const description = card.querySelector('p')?.textContent.toLowerCase() || '';
-
         if (filter === '' || title.includes(filter) || description.includes(filter)) {
             card.style.display = '';
         } else {
@@ -398,6 +571,5 @@ document.getElementById('searchInput').addEventListener('input', function() {
     });
 });
 </script>
-
 </body>
 </html>
